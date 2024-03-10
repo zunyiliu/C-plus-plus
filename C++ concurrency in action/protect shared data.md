@@ -22,7 +22,7 @@ private:
         connection = connection_manager.open(detail);
     }
 public:
-    X(const& connection_info detail_): detail(detail_) {}
+    X(connection_info const& detail_): detail(detail_) {}
     void send_data(data_package const& data) {
         call_once(flag, &X::open_connection(), this);
         send_data(data)
