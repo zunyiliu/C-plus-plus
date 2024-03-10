@@ -12,3 +12,7 @@ unique_lock<mutex> lock_a(mtx1, std::defer_lock);
 unique_lock<mutex> lock_b(mtx2, std::defer_lock);
 lock(lock_a, lock_b);
 ```
+
+### FAQ
+What is move?  
+a source is an lvalue--a real variable or reference to one or an rvalue--a temporary of some kind. Ownership transfer is automatic if the source is an rvalue and must be done explicitly(using std::move()) for an lvalue in order to avoid accidentally transferring ownership away from a variable.
