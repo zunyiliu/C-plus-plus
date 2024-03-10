@@ -1,7 +1,8 @@
 ### Definition
 1. Flexible Locking and Unlocking: allows for flexible management, including deferred locking, manual locking, and unlocking, and transferring lock ownership.
-2. Support for Condition Variables.
-3. Moveable but Not Copyable.
+2. Support lock/unlock multiple times.
+3. Support for Condition Variables.
+4. Moveable but Not Copyable.
 #### Usage
 ```cpp
 void function() {
@@ -15,10 +16,11 @@ void function() {
 }
 ```
 #### compare with lock_guard
+1. lock_guard is also unique, however, it is locked automatically when it's created, it can't be lock/unlock manually.
+2. lock_guard is for simple use case, it's slightly faster than unique_lock, unique_lock is used when the scenario is more complex and need more control. 
 ```cpp
-// lock_guard is slightly faster than unique_lock
 lock(mtx1, mtx2);
-lock_guard<mutex> lg1(mtx1, std::adopt_lock);
+lock_guard<mutex> lg1(mtx1, std::adopt_lock); // can have adopt_lock to inform the lock has already locked, but there's no defer_lock for lock_guard
 lock_guard<mutex> lg2(mtx2, std::adopt_lock);
 
 // this is equivalent as above, and defer_lock is to ask unique_lock not lock mutex for now
