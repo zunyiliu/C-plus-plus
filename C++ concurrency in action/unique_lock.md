@@ -16,3 +16,25 @@ lock(lock_a, lock_b);
 ### FAQ
 What is move?  
 a source is an lvalue--a real variable or reference to one or an rvalue--a temporary of some kind. Ownership transfer is automatic if the source is an rvalue and must be done explicitly(using std::move()) for an lvalue in order to avoid accidentally transferring ownership away from a variable.
+```cpp
+unique_lock<mutex> get_lock() {
+    mutex sm;
+    unique_lock<mutex> lk(sm);
+    return lk;
+}
+
+int main() {
+    // this can compile as uq must be passed as rvalue, the uq is transferred to lk
+    unique_lock<mutex> uq = get_lock();
+    unique_lock<mutex> lk(move(uq));
+
+    // this also works because the returned unique_lock is an automatic variable declared in the function
+    // no need to move as there's no reference of the returned lock
+    unique_lock<mutex> lk(get_lock());
+
+    // this is wrong as unique lock is not copiable
+    unique_lock<mutex> uq = get_lock();
+    unique_lock<mutex> lk(uq);
+    return 0;
+}
+```
