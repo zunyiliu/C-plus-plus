@@ -32,6 +32,18 @@ public:
         return connection.receive_data();
     }
 }
+// another way to keep thread safe in C++ 11 or above
+// singleton
+class my_class {
+public:
+    my_class() {
+        cout << "constructed" << endl; // this will only be called once no matter how many threads called get_my_class()
+    }
+};
+my_class& get_my_class() {
+    static my_class instance;
+    return instance;
+}
 ```
 
 ### FAQ
