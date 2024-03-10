@@ -11,4 +11,25 @@ void undefined_behaviour_with_double_checked_locking() {
     }
     resource_ptr -> do_something();
 }
+
+// good example using call_once and once_flag
+class X {
+private:
+    connection_info detail;
+    connection_handle connection;
+    once_flag flag;
+    void open_connection() {
+        connection = connection_manager.open(detail);
+    }
+public:
+    X(const& connection_info detail_): detail(detail_) {}
+    void send_data(data_package const& data) {
+        call_once(flag, &X::open_connection(), this);
+        send_data(data)
+    }
+    data_package receive_data() {
+        call_once(flag, &X::open_connection(), this);
+        return connection.receive_data();
+    }
+}
 ```
