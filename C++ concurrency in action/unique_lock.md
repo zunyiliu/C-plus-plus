@@ -1,4 +1,8 @@
+1. Flexible Locking and Unlocking: allows for flexible management, including deferred locking, manual locking, and unlocking, and transferring lock ownership.
+2. Support for Condition Variables.
+3. Moveable but Not Copyable.
 ```cpp
+// lock_guard is slightly faster than unique_lock
 lock(mtx1, mtx2);
 lock_guard<mutex> lg1(mtx1, std::adopt_lock);
 lock_guard<mutex> lg2(mtx2, std::adopt_lock);
