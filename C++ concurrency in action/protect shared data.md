@@ -33,3 +33,6 @@ public:
     }
 }
 ```
+
+### FAQ
+mutex and once_flag can't be copied or moved
