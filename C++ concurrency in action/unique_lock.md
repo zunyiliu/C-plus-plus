@@ -5,7 +5,7 @@
 #### Usage
 ```cpp
 void function() {
-    unique_lock<mutex> lk(mtx1); // be default the mtx is locked, unless 2nd argument is defined like defer_lock etc
+    unique_lock<mutex> lk(mtx1); // by default the mtx is locked, unless 2nd argument is defined like defer_lock etc
     do_somthing();
     lk.unlock(); // still need to manually unlock and lock if several lock/unlock actions are required within the scoped function
     lk.lock();
