@@ -1,6 +1,20 @@
+### Definition
 1. Flexible Locking and Unlocking: allows for flexible management, including deferred locking, manual locking, and unlocking, and transferring lock ownership.
 2. Support for Condition Variables.
 3. Moveable but Not Copyable.
+#### Usage
+```cpp
+void function() {
+    unique_lock<mutex> lk(mtx1); // be default the mtx is locked, unless 2nd argument is defined like defer_lock etc
+    do_somthing();
+    lk.unlock(); // still need to manually unlock and lock if several lock/unlock actions are required within the scoped function
+    lk.lock();
+    do_other_thing();
+    // don't need manually unlock since lk is scoped within the function, when function ends all resources within the function(by calling destructor) will be destroyed in reverse order
+    // and in destructor the unique_lock helps us to unlock mutex automatically
+}
+```
+#### compare with lock_guard
 ```cpp
 // lock_guard is slightly faster than unique_lock
 lock(mtx1, mtx2);
