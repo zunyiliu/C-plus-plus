@@ -14,7 +14,29 @@ mutex mtx;
 unique_lock<mutex> lk(mtx, []() {return !queue.empty()}); // mtx is locked
 condition.wait(lk);
 ```
-
+6. a practice consumer/producer model
+```cpp
+std::queue<some_data> q;
+std::mutex mtx;
+std::condition_variable condition;
+void produce(int v) {
+    lock_guard<mutex> lk(mtx);
+    q.push(some_data(v));
+    condition.notify_one();
+}
+void consume() {
+    while (true) {
+        unique_lock<mutex> lk(mtx);
+        condition.wait(lk, []() {
+            return !q.empty();
+        });
+        some_data data = q.front();
+        q.pop();
+        lk.unlock();
+        // do_something();
+    }
+}
+```
 ### Important!! how things actually work
 1. std::unique_lock<std::mutex> lk(mtx); locks the mutex mtx.
 2. cv.wait(lk, predicate); first evaluates the predicate:  
