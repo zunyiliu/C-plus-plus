@@ -1,8 +1,10 @@
 ### condition_variable
-1. std::condition_variable is specifically designed to work with std::mutex through std::unique_lock<std::mutex>. It cannot directly work with other types of mutexes, such as std::shared_mutex.
-2. notify_one: only one thread will be waken, if multiple threads are waiting then one of them(not specified) will be waken, it's arbitrary and depends OS scheduling etc.
-3. notify_all: all waiting threads will be waken up and then compete to acquire the mutex.  
-5. examples
+1. std::condition_variable is specifically designed to work with std::mutex through std::unique_lock<std::mutex>.
+2. It cannot directly work with other types of mutexes, such as std::shared_mutex. Why? shared_mutex is supposed to share among threads, and in condition_variable use case we are notifying one thread to do synchronization.
+3. It can only work with unique_lock. Why? the waiting thread must unlock the mutex while it’s waiting and lock it again afterward(when notified).  
+4. notify_one: only one thread will be waken, if multiple threads are waiting then one of them(not specified) will be waken, it's arbitrary and depends OS scheduling etc.
+5. notify_all: all waiting threads will be waken up and then compete to acquire the mutex.  
+6. examples
 ```cpp
 // wait without predicate(the lambda function)
 mutex mtx;
