@@ -5,6 +5,7 @@
 5. unique_lock/lock_guard: to lock write action.
 
 ```cpp
+// use shared_mutex with shared_lock and unique_lock
 int cnt;
 shared_mutex mtx; // use shared_lock with shared_mutex can enable concurrent read
 int read() {
