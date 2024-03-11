@@ -1,5 +1,6 @@
-1. It works just like std::mutex, except that you can acquire multiple locks on a single instance from the same thread.
-2. You must release all your locks before the mutex can be locked by another thread, so if you call lock() three times, you must also call unlock() three times. 
+1. It works just like std::mutex, except that you can acquire multiple locks on a single instance from the same thread -- it locks on thread level, one thread can lock the recursive_mutex multiple times.
+3. You must release all your locks before the mutex can be locked by another thread, so if you call lock() three times, you must also call unlock() three times.
+4. Must be very carefully used, it's a dangerous thing just like recursion method itself -- we don't use recursion a lot.
 ```cpp
 // the code snippet will only print 1, 2 then 3, 4 or 3, 4 then 1, 2
 recursive_mutex mtx;
