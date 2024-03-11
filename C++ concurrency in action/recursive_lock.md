@@ -52,8 +52,7 @@ int main() {
 }
 
 // a real example of using the lock in recursion
-// control the depth of the recursion, in real case if you are dfs a tree then the end will become the leaf node
-int depth1 = 0;
+int depth1 = 0; // depth is used to control the stop point of recursion, in real world if you are dfs a tree then the end will be after visiting of the leaf node
 int depth2 = 0; 
 recursive_mutex mtx;
 void dfs1() {
