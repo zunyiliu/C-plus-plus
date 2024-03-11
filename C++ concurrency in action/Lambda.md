@@ -32,7 +32,7 @@ cout << multiply(3, 5) << endl;
 // another example, for_each is defined in <algorithm>
 vector<int> v = {1, 2, 3, 4, 5};
 int sum = 0;
-std::for_each(v.begin(), v.end(), [&sum](int n) {
+std::for_each(v.begin(), v.end(), [&sum](int n) { // [&sum] means sum is passed by reference
     sum += n;
 });
 cout << sum << endl; // will print 15
