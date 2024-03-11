@@ -45,11 +45,13 @@ void consume() {
    If the predicate is true, it proceeds without waiting(mtx keeps locked).  
    If the predicate is false, it unlocks mtx and puts the current thread into a wait state.
    If there's no predicate, it's equivalent as predicate is false -> unlocks mtx and puts current thread to wait.  
-4. When the condition variable is notified (through cv.notify_one() or cv.notify_all()), the waiting thread tries to get the mutex, if it's notify_all then all notified threads will compete for the lock(by lock, we mean get the mutex and lock it), if it's notify_one then arbitrarily notify one of the waiting thread. 
+4. When the condition variable is notified (through cv.notify_one() or cv.notify_all()), the waiting thread tries to get the mutex, if it's notify_all then all notified threads will wake and compete for the lock(by lock, we mean get the mutex and lock it), if it's notify_one then arbitrarily notify one of the waiting thread. 
 5. Once the mutex is reacquired, the predicate is evaluated again:  
    If the predicate is now true, the wait operation completes, and the thread continues execution with the mutex locked.  
    If the predicate is false, the thread goes back into the wait state, and the mutex is unlocked again. This process repeats until the predicate returns true.
    If there's no predicate then no need to consider it, same as it's true
-6. the preicate lambda function is executed safely as long as it's accessing data protected by the mutex, since the predicate is executed when the thread holds the lock, however there's possible to have a unsafe practice in real world that you are accessing unprotected data in predicate.  
+6. the preicate lambda function is executed safely as long as it's accessing data protected by the mutex, since the predicate is executed when the thread holds the lock, however there's possible to have a unsafe practice in real world that you are accessing unprotected data in predicate.
+7. condition_variable states: initially for threads condition_variable is in wait state, when it's notified it will turn to ready state and trying to acquire mutex. So notify_all() will indeed wake up all threads but only one thread can acquire the lock, however all other threads are not waiting condition_variable anymore, they are blocked at getting lock. Unless a thread gets lock, checks predicate which returns false, then it will release the lock and go back to wait notify again.
+8. condition_variable must use with the same lock over all threads, otherwise the behavior becomes unpredicatable.
 #### Lambda that used in condition_variable
 https://github.com/zunyiliu/C-plus-plus/blob/main/C%2B%2B%20concurrency%20in%20action/avoid%20deadlock.md
