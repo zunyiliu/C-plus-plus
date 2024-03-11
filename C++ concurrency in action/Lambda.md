@@ -10,8 +10,8 @@ or simplified as
 }
 ```
 1. capture_clause: Specifies which variables from the surrounding scope are available inside the lambda and how (by value, by reference). It can be empty.
-2. parameters: params of the function
-3. function_body: lambda function body
+2. parameters: params of the function.
+3. function_body: lambda function body.
 ### Example
 ```cpp
 int x = 10, y = 10;
