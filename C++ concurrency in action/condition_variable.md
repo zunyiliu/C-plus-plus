@@ -21,10 +21,11 @@ condition.wait(lk);
    If the predicate is true, it proceeds without waiting(mtx keeps locked).  
    If the predicate is false, it unlocks mtx and puts the current thread into a wait state.
    If there's no predicate, it's equivalent as predicate is false -> unlocks mtx and puts current thread to wait.  
-4. When the condition variable is notified (through cv.notify_one() or cv.notify_all()), the waiting thread tries to get the mutex and will unblock if it gets the mutex(it's possible the thread will continue wait as the mutex is acquired by other waiting threads), but before it actually wakes up, the wait function internally reacquires the mutex mtx. 
+4. When the condition variable is notified (through cv.notify_one() or cv.notify_all()), the waiting thread tries to get the mutex, if it's notify_all then all notified threads will compete for the lock(by lock, we mean get the mutex and lock it), if it's notify_one then arbitrarily notify one of the waiting thread. 
 5. Once the mutex is reacquired, the predicate is evaluated again:  
-   If the predicate is now true, the wait operation completes, and the thread continues execution with the mutex mtx locked.  
+   If the predicate is now true, the wait operation completes, and the thread continues execution with the mutex locked.  
    If the predicate is false, the thread goes back into the wait state, and the mutex is unlocked again. This process repeats until the predicate returns true.
    If there's no predicate then no need to consider it, same as it's true
+6. the preicate lambda function is executed safely as long as it's accessing data protected by the mutex, since the predicate is executed when the thread holds the lock, however there's possible to have a unsafe practice in real world that you are accessing unprotected data in predicate.  
 #### Lambda that used in condition_variable
 https://github.com/zunyiliu/C-plus-plus/blob/main/C%2B%2B%20concurrency%20in%20action/avoid%20deadlock.md
