@@ -127,13 +127,13 @@ p = &a;
 class X {
 public:
     // function<x(y)> z, x is the return type, y is the param, z is the name of the function
-    void test(function<void(int)> func) {
-        func(1);
+    void test(function<void(int, int)> func) {
+        func(1, 2);
     }
 };
 // to call the function
-auto f = [](int x) {
-    std::cout << x << endl;
+auto f = [](int x, int y) {
+    std::cout << x << " " << y << endl;
 };
 X x;
 x.test(f);
