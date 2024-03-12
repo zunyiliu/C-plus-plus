@@ -122,3 +122,18 @@ int a = 10;
 p = &a;
 /* This is fine. Value of a is changed */
 *p = 12;
+
+// pass anonymous function as param
+class X {
+public:
+    // function<x(y)> z, x is the return type, y is the param, z is the name of the function
+    void test(function<void(int)> func) {
+        func(1);
+    }
+};
+// to call the function
+auto f = [](int x) {
+    std::cout << x << endl;
+};
+X x;
+x.test(f);
