@@ -34,9 +34,13 @@ set.clear(); // clear set
 map.insert(std::make_pair(2, 1));
 map[2] = 1;
 // iterate the map, auto is similar like var in Java
+// auto is std::pair<const KeyType, ValueType>& here
 for (auto x : map) {
     cout << x.first << " " << x.second << endl;
 }
+// auto is iterator here, std::map<KeyType, ValueType>::const_iterator, must use -> to access first/second data
+auto x = map.find(3);
+cout << x -> first << " " << x -> second << endl;
 // note: use map.find(key) == map.end() to check if a key exists in the map, map[key] == val will automatically insert a default val to the key if the key doesn't exist in the map
 map.clear();
 
