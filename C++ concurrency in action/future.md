@@ -1,5 +1,5 @@
 ### std::future
-future is used to access the result of an asynchronous operation. The main difference from thread is future can get return value. 
+future is used to access the result of an asynchronous operation. The main difference from thread is future can get return value, also future can capture and handle exception whereas thread can only handle exception within the thread itself.
 #### future typees
 1. std::launch::async, guarantees that the task will be executed on a new thread asynchronously.
 2. std::launch::deferred, the task is not started immediately. Instead, it is executed lazily, only when its result is explicitly requested (e.g., via future.get() or future.wait()). 
@@ -68,3 +68,4 @@ int main() {
 }
 ```
 ### std::shared_future
+allows multiple accesses to the result of an asynchronous operation.
