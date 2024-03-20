@@ -17,6 +17,20 @@ int main() {
     cout << future.get() << endl; // future.wait() is just waiting without getting the returned value
     return 0;
 }
+
+class Obj {
+public:
+    int sum(int x, int y) {
+        this_thread::sleep_for(chrono::milliseconds(1000));
+        return x + y;
+    }
+};
+int main() {
+    Obj obj;
+    future<int> f = async(&Obj::sum, &obj, 3, 4);
+    std::cout << f.get() << endl;
+    return 0;
+}
 ```
 #### future with promise
 ```cpp
