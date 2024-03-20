@@ -41,5 +41,16 @@ int main() {
 #### future with packaged_task
 ```cpp
 // packaged_task encapsulates a task that can be executed asynchronously
+int main() {
+    packaged_task<int(int, int)> task([](int const& a, int const& b){
+        this_thread::sleep_for(chrono::milliseconds(1000));
+        return a + b;        
+    });
+    future<int> f = task.get_future();
+    thread t(move(task), 3, 5);
+    cout << f.get() << endl;
+    t.join();
+    return 0;
+}
 ```
 ### std::shared_future
