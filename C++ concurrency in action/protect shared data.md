@@ -11,6 +11,8 @@ void undefined_behaviour_with_double_checked_locking() {
     }
     resource_ptr -> do_something();
 }
+// solution -- the resource_ptr needs to be changed to atomic, it's possible that threadA is init the resource_ptr and threadB finds if(!resource_ptr) returns true thus letting
+// recourse_ptr to do_something() before the resource is fully reset by threadA
 
 // good example using call_once and once_flag
 class X {
