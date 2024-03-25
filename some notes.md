@@ -89,14 +89,35 @@ struct MyComparator {
     }
 };
 map<MyClass, std::string, MyComparator> myMap;
-// 10. set -> treeset in Java
-set<int> set;
-set<int, ReverseComparator> mySet;
-struct ReverseComparator {
-    bool operator()(const int& lhs, const int& rhs) const {
-        return lhs > rhs; // reverse order
+#### set -> treeset in Java
+```cpp
+class Node {
+public:
+    int val;
+    Node(int _val): val(_val) {};  
+};
+
+struct node_comparator {
+    bool operator()(Node const& a, Node const& b) const {
+        return a.val < b.val;
     }
 };
+
+int main()
+{
+    set<Node, node_comparator> set;
+    set.insert(Node(3));
+    set.insert(Node(-1));
+    set.insert(Node(-2));
+    set.insert(Node(-1));
+    bool found = set.find(Node(3)) != set.end();
+    cout << found << endl; // print true(1)
+    cout << set.size() << endl; // print 3
+    cout << set.begin() -> val << endl; // print first node which is -2
+    cout << set.rbegin() -> val << endl; // print last node which is 3
+    return 0;
+}
+```
 
 // 10. list, linkedlist in java
 
