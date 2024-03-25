@@ -78,7 +78,7 @@ struct CompareStudent {
 priority_queue<Student, std::vector<Student>, CompareStudent> pq; // pq with comparator
 pq.push(); pq.pop(); pq.top();pq.empty();
 
-#### map -> treemap in Java
+#### map -- treemap in Java
 ```cpp
 class Node {
 public:
@@ -106,7 +106,7 @@ int main()
     return 0;
 }
 ```
-#### set -> treeset in Java
+#### set -- treeset in Java
 ```cpp
 class Node {
 public:
