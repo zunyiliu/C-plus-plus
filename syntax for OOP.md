@@ -1,4 +1,4 @@
-### Inheritance and Abstract class
+### Inheritance and Abstract class, and Polymophsim
 ```cpp
 class animal {
 private:
@@ -27,17 +27,38 @@ public:
     void eat() override {
         cout << "duck eat" << endl;
     }
+    void fly() override {
+        cout << "duck fly " << fly_time << " secs" << endl;
+    }
 };
-
-// will print:
-// duck eat
-// fly 10 secs
-// 3
+class pigeon : public bird {
+public:
+    pigeon(int _fly_time) : bird(_fly_time) {}
+    void fly() override {
+        cout << "pigeon fly " << fly_time << " secs" << endl;
+    }
+};
 int main() {
-   duck duck_instance(3, 10);
-   duck_instance.eat();
-   duck_instance.fly();
-   cout << duck_instance.get_weight() << endl;
+    // will print:
+    // duck eat
+    // duck fly 10 secs
+    // 3
+    duck duck_instance(3, 10);
+    duck_instance.eat();
+    duck_instance.fly();
+    cout << duck_instance.get_weight() << endl;
+    
+    // polymorphism 
+    pigeon pigeon(300);
+    bird* bird_pointer = nullptr;
+    
+    // will print pigeon fly 300 secs
+    bird_pointer = &pigeon;
+    bird_pointer -> fly();
+
+    // will print duck fly 10 secs
+    bird_pointer = &duck_instance;
+    bird_pointer -> fly();
 }
 ```
 ### interface
