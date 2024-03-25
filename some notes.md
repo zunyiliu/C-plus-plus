@@ -78,17 +78,34 @@ struct CompareStudent {
 priority_queue<Student, std::vector<Student>, CompareStudent> pq; // pq with comparator
 pq.push(); pq.pop(); pq.top();pq.empty();
 
-// 9. map -> treemap in Java
-map<int, std::string> map;
-map.insert(std::make_pair(1, "One"));
-map.erase(1);
-map.find() == map.end();
-struct MyComparator {
-    bool operator()(const MyClass& a, const MyClass& b) const {
-        return a.value < b.value;
+#### map -> treemap in Java
+```cpp
+class Node {
+public:
+    int val;
+    Node(int _val): val(_val) {};  
+};
+
+struct node_comparator {
+    bool operator()(Node const& a, Node const& b) const {
+        return a.val < b.val;
     }
 };
-map<MyClass, std::string, MyComparator> myMap;
+
+int main()
+{
+    map<Node, string, node_comparator> map;
+    map.insert(make_pair(Node(3), "3a"));
+    map.insert(make_pair(Node(1), "1a"));
+    map.insert(make_pair(Node(2), "2a"));
+    map.insert(make_pair(Node(3), "33a"));
+    cout << map.size() << endl; // print 3
+    cout << map.begin() -> second << endl; // print first, which is 1a
+    cout << map.rbegin() -> second << endl; // print last, which is 33a
+    cout << map.find(Node(3)) -> second << endl; // print 3a, in c++ the later insert will not overwrite the previous insert, it's different from Java treemap
+    return 0;
+}
+```
 #### set -> treeset in Java
 ```cpp
 class Node {
