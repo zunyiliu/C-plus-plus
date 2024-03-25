@@ -40,3 +40,5 @@ int main() {
    cout << duck_instance.get_weight() << endl;
 }
 ```
+### interface
+C++ doesn't have an interface like in Java, so declare all methods to virtual makes it to be an 'interface'.
