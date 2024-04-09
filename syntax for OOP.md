@@ -63,5 +63,3 @@ int main() {
 ```
 ### interface
 C++ doesn't have an interface like in Java, so declare all methods to virtual makes it to be an 'interface'.
-
-![Screenshot 2024-04-08 172330](https://github.com/zunyiliu/C-plus-plus/assets/43444919/c147a835-c7d5-4db0-9153-31e3d6ac34f2)
