@@ -1,47 +1,47 @@
-// 1. & and * operator
-int num = 3; // declare a int variable num and assign 3 to it
-int* p = &num; // int*: declare this is a int pointer, &num: & is used as Address-of Operator, the address of num
-int** pp = &p; // int**: pointer of pointer, &p: address of pointer p
-int &num1 = num; // declare as a reference, now num1 and num points to the value in same address, num1 = 3 will change num to 3 as weel
-int* p1 = p; // same, copy the val of p and assign it to p1: &p1 and &p will be different
-int* &p2 = p; // &p2 will == &p, the address of two pointers are the same, p2 is just an alias of p
+// 1. & and * operator 
+int num = 3; // declare a int variable num and assign 3 to it 
+int* p = &num; // int*: declare this is a int pointer, &num: & is used as Address-of Operator, the address of num 
+int** pp = &p; // int**: pointer of pointer, &p: address of pointer p 
+int &num1 = num; // declare as a reference, now num1 and num points to the value in same address, num1 = 3 will change num to 3 as weel 
+int* p1 = p; // same, copy the val of p and assign it to p1: &p1 and &p will be different 
+int* &p2 = p; // &p2 will == &p, the address of two pointers are the same, p2 is just an alias of p 
 
-// 2. param in method
+// 2. param in method 
 method(int& num){} // pass by reference, change num will change the orignial variable that passed into method
-method(int num){} // pass by value, the param is just a copy of the original variable -- 这里有个很大的不同，java之类的语言如果传的是一个对象或者数组/list，传过去的是一个reference，而在C++里是会把整个对象/数组拷贝以后以值的方式传入的
-method(int* num){} // pass by reference
+method(int num){} // pass by value, the param is just a copy of the original variable -- 这里有个很大的不同，java之类的语言如果传的是一个对象或者数组/list，传过去的是一个reference，而在C++里是会把整个对象/数组拷贝以后以值的方式传入的 
+method(int* num){} // pass by reference 
 
-// 3. usage of a pointer 
-// Obj* p: p -> val, or (*p).val
-// vector<int>* p: p -> at(x) or (*p)[x]
+// 3. usage of a pointer  
+// Obj* p: p -> val, or (*p).val 
+// vector<int>* p: p -> at(x) or (*p)[x] 
 
-// 4. unordered_set(hashSet equivalent in Java)
-unordered_set<string> set;
-set.insert("code"); // add
-set.erase("code"); // remove, won't throw error if not found
-set.find(key) == set.end(); // contains, set.find(key) returns an iterator of the key, if key not found then return set.end()
-unordered_set<string>::iterator itr = set.find(key); 
-int val = *itr; // use * to access value of iterator, iterator is an abstract type which can have similar operation like a pointer
-unordered_set<string>::iterator begin = set.begin();
-begin++; // use ++ for itr to move backwards
-// note: iterator operation is depending on the type, for an unordered_set, you can only apply ++ to move backwards, some can accept -- to move forward and some can accept itr += n for random access
-unordered_set<string>::iterator end = set.end();
-set.clear(); // clear set
+// 4. unordered_set(hashSet equivalent in Java) 
+unordered_set<string> set;  
+set.insert("code"); // add 
+set.erase("code"); // remove, won't throw error if not fo und 
+set.find(key) == set.end(); // contains, set.find(key) returns an iterator of the key, if key not found then return set.end() 
+unordered_set<string>::iterator itr = set.find(key);  
+int val = *itr; // use * to access value of iterator, iterator is an abstract type which can have similar operation like a pointer 
+unordered_set<string>::iterator begin = set.begin(); 
+begin++; // use ++ for itr to move backwards 
+// note: iterator operation is depending on the type, for an unordered_set, you can only apply ++ to move backwards, some can accept -- to move  forward and some can accept itr += n for random access 
+unordered_set<string>::iterator end = set.end(); 
+set.clear(); // clear set 
 
 
 // 5. unordered_map<int, int> map (hashmap equivalent in Java)
-// add key-val pair, both works
-map.insert(std::make_pair(2, 1));
-map[2] = 1;
-// iterate the map, auto is similar like var in Java
-// auto is std::pair<const KeyType, ValueType>& here
-for (auto x : map) {
-    cout << x.first << " " << x.second << endl;
-}
-// auto is iterator here, std::map<KeyType, ValueType>::const_iterator, must use -> to access first/second data
-auto x = map.find(3);
-cout << x -> first << " " << x -> second << endl;
-// note: use map.find(key) == map.end() to check if a key exists in the map, map[key] == val will automatically insert a default val to the key if the key doesn't exist in the map
+// add key-val pair, both works 
+map.insert(std::make_pair(2, 1)); 
+map[2] = 1; 
+// iterate the map, auto is similar like var in Java 
+// auto is std::pair<const KeyType, ValueType>& here 
+for (auto x : map) { 
+    cout << x.first << " " << x.second << endl; 
+} 
+// auto is iterator here, std::map<KeyType, ValueType>::const_iterator, must use -> to access first/second data 
+auto x = map.find(3); 
+cout << x -> first << " " << x -> second << endl; 
+// note: use map.find(key) == map.end() to check if a key exists in the map, map[key] == val will automatically insert a default val to the key if  the key doesn't exist in the map
 map.clear();
 map.erase(key);
 
